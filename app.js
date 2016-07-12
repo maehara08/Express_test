@@ -37,9 +37,14 @@ app.get('/users', function (req, res) {
 });
 
 // http://localhost:3000/api/1
-app.get('/api/:version', function(req, res) {
+app.get('/api/:version', function (req, res) {
     res.send(req.params.version);
-    connection.query('insert into posts(name,post,created) values(\'sato'+req.params.version+'\','+req.params.version+',\'2016-7-12 11:00:00\')');
+    connection.query("insert into posts(name,post,created) values('sato "+ req.params.version + "','" + req.params.version + "',\'2016-7-12 11:00:00\')",
+    function (err) {
+        if (err){
+            console.error('error connecting: ' + err.stack);
+        }
+    });
     // connection.query('insert into posts(name,post,created) values(\'sato1\',\'hello1\',\'2016-7-12 11:00:00\')');
 });
 
